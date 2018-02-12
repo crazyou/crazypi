@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <title>趣之</title>
+    <link href="font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/css.css" rel="stylesheet" />
+    <script src="js/jquery.1.9.1.min.js"></script>
+    <script src="js/Touch.js"></script>
+    <script src="js/js.js"></script>
+</head>
+<body>
+    <div id="welcome">
+        <img src="imgs/loading.gif" />
+        <p>正在搜索附近的热点...</p>
+    </div>
+    <div id="list">
+        <p class="bb"></p>
+        <dl>
+            <dt>
+                <p class="bb m2">当前已连接到</p>
+                <p class="bb pos_rel">
+                    <i class="fa fa-check"></i><span class="wifi-name">360-Mini-Wifi1</span><i class="fa fa-wifi"></i>
+                    <span class="os">
+                        <button class="btn close">断开</button>
+                        <button class="btn cancel">取消</button>
+                    </span>
+                </p>
+            </dt>
+            <dd>
+                <p class="bb bgg">选取网络...</p>
+                {{range $index, $elem := .}}
+                {{if ne $elem.ESSID ""}}
+
+                <p class="m2 bb pos_rel">
+                    <span class="wifi-name">{{$elem.ESSID}}</span><i class="fa fa-wifi"></i>
+                    <span class="os">
+                        <button class="btn connect">连接</button>
+                        <button class="btn cancel">取消</button>
+                    </span>
+                </p>
+                {{end}}
+                {{end}}
+                <p class="m2 bb pos_rel else">
+                    <span class="wifi-name">其它 ...</span>
+                </p>
+            </dd>
+        </dl>
+        <div id="forms" ontouchmove="return false" ontouchstart="return false">
+            <div id="connect" class="hide">
+                <input id="password" type="password" ontouchstart="this.focus();" placeholder="输入密码" value="" />
+                <button class="btn" id="btnCancel">取消</button>
+                <button class="btn" id="btnConnect">连接</button>
+            </div>
+            <div id="newConnect" class="hide">
+                <input id="ssid" type="text" ontouchstart="this.focus();" placeholder="输入wifi名称" value="" />
+                <input id="password1" type="password" ontouchstart="this.focus();" placeholder="输入密码" value="" />
+                <button class="btn" id="btnCancel1">取消</button>
+                <button class="btn" id="btnConnect1">连接</button>
+            </div>
+        </div>
+        <div id="connecting" ontouchstart="return false" ontouchmove="return false">
+            <div class="ing">
+                <img src="imgs/loading.gif" />
+                <p>正在连接，请稍后 ...</p>
+            </div>
+            <div class="success hide">
+                <i class="fa fa-check-square"></i>
+                <h2>连接成功</h2>
+            </div>
+            <div class="error hide">
+                <i class="fa fa-close"></i>
+                <h2>连接失败</h2>
+            </div>
+            <div class="form hide">
+                <div>
+                    <input type="text" id="cname" ontouchstart="this.focus()" placeholder="请输入用户名" />
+                    <input type="password" id="cpassword" ontouchstart="this.focus()" placeholder="请输入密码" />
+                    <button class="btn" id="btnBind">登录并绑定</button>
+                    <span>提示：这里使用的是<b>carzyou</b>的账户密码</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+syntax = "proto3";
+package crazy_rtc;
+
+service Saiya {
+  rpc Robot2Saiya(stream CrazyMsg) returns (stream CrazyMsg) {} 
+  rpc Web2Saiya(stream CrazyMsg) returns (stream CrazyMsg) {} 
+  rpc Mobile2Saiya(stream CrazyMsg) returns (stream CrazyMsg) {} 
+
+  rpc GetDevList(EmailReq) returns (DeviceList) {}
+  rpc GetDevInfo(DevReq) returns (DeviceInfo) {}
+}
+
+message EmailReq {
+    string email = 1;
+}
+
+message DevReq {
+    string did = 1;
+}
+
+enum DeviceType {
+    SERVER = 0;
+    ROBOT = 1;
+}
+
+message DeviceInfo {
+  DeviceType type = 1;
+  string os_info = 2;
+  string local_ip = 3;
+  string public_ip = 4;
+  string cpu_info = 5;
+  float  cpu_rate = 6;
+  string loader = 7;
+  string mac_addr = 8;
+  float  mem_total = 9;
+  float  mem_free = 10;
+  string fs_type = 11;
+  float  fs_total = 12;
+  float  fs_used = 13;
+  string wifi_ssid = 14;
+  string wifi_signal = 15;
+  string name = 16;
+  int64 time = 17;
+}
+
+message CrazyMsg{
+  string cmd = 1;
+  string subcmd = 2;
+  string msg = 3;
+  int32  value = 4; 
+  int64  time = 5;
+  int32  ret = 6;
+  string did = 7;
+  string email = 8;
+  DeviceInfo dinfo = 9;
+  DeviceList dlist = 10;
+}
+
+message DeviceList{
+    repeated DeviceInfo dlist = 1;
+    string page = 2;
+    uint32 dtotal = 3;
+}
+
+

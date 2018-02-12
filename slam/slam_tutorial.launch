@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="geotiff_map_file_path" default="$(find hector_geotiff)/maps"/>
+  <!--
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+  -->
+  <!--
+  <include file="/home/crazypi/bred.launch"/>
+  <include file="/home/crazypi/mapping_default.launch"/>
+  <include file="$(find hector_mapping)/launch/mapping_default.launch"/>
+  -->
+
+  <!-- -->
+  <include file="/home/crazypi/apps/slam/mapping_default_odom.launch"/>
+  
+  <!--
+  <include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
+    <arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+    <arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
+  </include>
+  -->
+
+<!-- 
+<node pkg="odom2base_link" type="tf_broadcast" name="tf_broadcast" output="screen"/>
+-->
+<node pkg="tf" type="static_transform_publisher" name="tf_odom2baselink" args="0 0 0 0 0 0 odom base_link 100"/>
+
+<node pkg="hector_trajectory_server" type="hector_trajectory_server" name="hector_trajectory_server" output="screen">
+    <param name="target_frame_name" type="string" value="/map" />
+    <param name="source_frame_name" type="string" value="/base_link" />
+    <param name="trajectory_update_rate" type="double" value="1" />
+    <param name="trajectory_publish_rate" type="double" value="0.25" />
+</node>
+
+</launch>
